@@ -27,21 +27,27 @@ BOLD='\e[1m'                # BOLD
 RESET='\e[0m'               # Text Reset
 UNDLINE='\e[4m'             # UNDERLINE
 
-#This tells you what server you are on.
+# Tells you what server you are on.
 echo -e "${GREEN}You are in:${RESET}"
 hostname -f
 
+# Tells you everyone connected via SSH
 echo -e "\n${GREEN}Everyone in the club:${RESET}" 
 w
- 
+
+# Lets you know who has a screen and what its running
 echo -e "\n${GREEN}Tell me who's watching:${RESET}"
 screen -ls
  
+# Tells you the number of CPUs on the server
 echo -e "\n${GREEN}CPUs${RESET}"  
 grep -c proc /proc/cpuinfo
- 
+
+# Gives you free memory in megabytes  
 echo -e "\n${GREEN}Free Memory, Not Free Bird:${RESET}" 
 free -m
+
+# The following gives you CPU usage, Load Averages (every 5/10/15 mins), Memory Usage, I/O wait% and more in depth I/O stats.
 
 echo -e "\n${GREEN}CPU Usage:${RESET}"
 sar | head -3 
@@ -57,14 +63,14 @@ sar -d | head -3
 sar -d | tail -5
 echo
  
-# check if this runs before actually running it.
+# Check if this runs before actually running it.
 # This is only available on cpanel servers.
 if [ -a /usr/local/cpanel/bin/dcpumonview ]; then
     /usr/local/cpanel/bin/dcpumonview
 fi
 
 echo -e "\n${GREEN}Active Connections:${RESET}"
-# are we root? The netstat -p option requires root
+# Are we root? The netstat -p option requires root
 if [ $EUID -ne 0 ]; then
     netstat -tuna
 else
