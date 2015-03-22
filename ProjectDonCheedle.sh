@@ -3,29 +3,29 @@
 #################################################################################
 # EVALUATE COLOR CODES
 #################################################################################
-BLACK='\e[0;30m' 			# Black
-RED='\e[0;31m' 				# Red
-GREEN='\e[0;32m' 			# Green
-YELLOW='\e[0;33m' 			# Yellow
-BLUE='\e[0;34m' 			# Blue
-MAGENTA='\e[0;35m' 			# Magenta
-CYAN='\e[0;36m' 			# Cyancd 
-WHITE='\e[0;97m' 			# White
+BLACK='\e[0;30m'            # Black
+RED='\e[0;31m'              # Red
+GREEN='\e[0;32m'            # Green
+YELLOW='\e[0;33m'           # Yellow
+BLUE='\e[0;34m'             # Blue
+MAGENTA='\e[0;35m'          # Magenta
+CYAN='\e[0;36m'             # Cyancd 
+WHITE='\e[0;97m'            # White
 
-BLDBLACK='\e[1;30m' 		# Black - Bold
-BLDRED='\e[1;31m' 			# Red - Bold
-BLDGREEN='\e[1;32m' 		# Green - Bold
+BLDBLACK='\e[1;30m'         # Black - Bold
+BLDRED='\e[1;31m'           # Red - Bold
+BLDGREEN='\e[1;32m'         # Green - Bold
 
 
-BLDYELLOW='\e[1;33m'		# Yellow - Bold
-BLDBLUE='\e[1;34m' 			# Blue - Bold
-BLDMAGENTA='\e[1;35m' 		# Magenta - Bold
-BLDCYAN='\e[1;36m' 			# Cyan - Bold
-BLDWHITE='\e[1;97m' 		# White - Bold
+BLDYELLOW='\e[1;33m'        # Yellow - Bold
+BLDBLUE='\e[1;34m'          # Blue - Bold
+BLDMAGENTA='\e[1;35m'       # Magenta - Bold
+BLDCYAN='\e[1;36m'          # Cyan - Bold
+BLDWHITE='\e[1;97m'         # White - Bold
 
-BOLD='\e[1m'				# BOLD
-RESET='\e[0m'    			# Text Reset
-UNDLINE='\e[4m'				# UNDERLINE
+BOLD='\e[1m'                # BOLD
+RESET='\e[0m'               # Text Reset
+UNDLINE='\e[4m'             # UNDERLINE
 
 #
 echo -e "${GREEN}You are in:${RESET}"
@@ -50,10 +50,10 @@ echo -e "\n${GREEN}Load:${RESET}"
 sar -q | head -3 
 sar -q | tail -5 
 echo -e "\n${GREEN}Memory:${RESET}"
-sar -r |head -3 
+sar -r | head -3 
 sar -r | tail -5
 echo -e "\n${GREEN}I/O Wait:${RESET}"
-sar -d |head -3 
+sar -d | head -3 
 sar -d | tail -5
 echo
  
