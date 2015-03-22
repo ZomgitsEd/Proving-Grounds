@@ -27,7 +27,7 @@ BOLD='\e[1m'                # BOLD
 RESET='\e[0m'               # Text Reset
 UNDLINE='\e[4m'             # UNDERLINE
 
-#
+#This tells you what server you are on.
 echo -e "${GREEN}You are in:${RESET}"
 hostname -f
 
