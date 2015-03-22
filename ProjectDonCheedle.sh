@@ -28,30 +28,45 @@ RESET='\e[0m'    			# Text Reset
 UNDLINE='\e[4m'				# UNDERLINE
 
 #
-echo -e "${GREEN}You are in:${RESET}\n"
+echo -e "${GREEN}You are in:${RESET}"
 hostname -f
 
-echo -e "\n${GREEN}Everyone in the club:${RESET}\n" 
+echo -e "\n${GREEN}Everyone in the club:${RESET}" 
 w
  
-echo -e "\n${GREEN}Tell me who's watching:${RESET}\n"
+echo -e "\n${GREEN}Tell me who's watching:${RESET}"
 screen -ls
  
-echo -e "\n${GREEN}CPUs${RESET}\n"  
+echo -e "\n${GREEN}CPUs${RESET}"  
 grep -c proc /proc/cpuinfo
  
-echo -e "\n${GREEN}Free Memory, Not Free Bird:${RESET}\n" 
+echo -e "\n${GREEN}Free Memory, Not Free Bird:${RESET}" 
 free -m
 
-echo -e "\n${GREEN}I/O Wait:${RESET}\n"
+echo -e "\n${GREEN}CPU Usage:${RESET}"
 sar | head -3 
 sar | tail -5 
+echo -e "\n${GREEN}Load:${RESET}"
 sar -q | head -3 
 sar -q | tail -5 
+echo -e "\n${GREEN}Memory:${RESET}"
 sar -r |head -3 
 sar -r | tail -5
+echo -e "\n${GREEN}I/O Wait:${RESET}"
+sar -d |head -3 
+sar -d | tail -5
 echo
  
-echo -e "\n/usr/local/cpanel/bin/dcpumonview\n"
-echo -e "\n Active Connections: \n"
-netstat -pltuna
+# check if this runs before actually running it.
+# This is only available on cpanel servers.
+if [ -a /usr/local/cpanel/bin/dcpumonview ]; then
+    /usr/local/cpanel/bin/dcpumonview
+fi
+
+echo -e "\n${GREEN}Active Connections:${RESET}"
+# are we root? The netstat -p option requires root
+if [ $EUID -ne 0 ]; then
+    netstat -tuna
+else
+    netstat -ptuna
+fi
