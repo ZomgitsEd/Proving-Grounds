@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#TimCurry Checks versions of MySQL, PHP, Apache, cPANEL, Kernel, and Linux OS.
+
 #################################################################################
 # EVALUATE COLOR CODES
 #################################################################################
@@ -27,9 +29,17 @@ BOLD='\e[1m'                # BOLD
 RESET='\e[0m'               # Text Reset
 UNDLINE='\e[4m'             # UNDERLINE
 
-mysql -V 
+
+echo -e "\n${CYAN}Version Check on Deck:${RESET}" 
+
+mysql -V
+
 php -v 
-httpd -v 
+
+httpd -v
+ 
 /usr/local/cpanel/cpanel -V 
+
 uname -a
+
 cat /etc/redhat-release
