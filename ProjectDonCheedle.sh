@@ -39,6 +39,42 @@ w
 echo -e "\n${GREEN}Tell me who's watching:${RESET}"
 screen -ls
  
+#Service Status Checker Section:
+echo -e "\n${BLDYELLOW}HOW YOU DOING?!${RESET}"
+ 
+echo -e "\n${BLDYELLOW}Named${RESET}"
+service named status
+
+echo -e "\n${BLDYELLOW}Apache${RESET}"
+service httpd status
+ 
+echo -e "\n${BLDYELLOW}MySQL${RESET}"
+service mysql status
+ 
+echo -e "\n${BLDYELLOW}cPanel${RESET}"
+service cpanel status
+ 
+echo -e "\n${BLDYELLOW}Dovecot or Courier${RESET}"
+service dovecot status
+ 
+echo -e "\n${BLDYELLOW}Exim${RESET}"
+service exim status 
+
+echo -e "\n${BLDYELLOW}Exim Queue${RESET}"
+ exim -bpc
+ 
+echo -e "\n${BLDYELLOW}Pure or Pro FTP${RESET}"
+ftpserver=$(/scripts/setupftpserver --current | awk {'print $5'});
+if [[$ftpserver == "pure-ftpd" ]]; then
+    /etc/init.d/pure-ftpd status
+fi
+	
+if	
+	[[$ftpserver == "proftpd" ]]; then
+    /etc/init.d/proftpd status 
+fi
+
+
 # Tells you the number of CPUs on the server
 echo -e "\n${GREEN}CPUs${RESET}"  
 grep -c proc /proc/cpuinfo
@@ -47,9 +83,9 @@ grep -c proc /proc/cpuinfo
 echo -e "\n${GREEN}Free Memory, Not Free Bird:${RESET}" 
 free -m
 
-# The following gives you CPU usage, Load Averages (every 5/10/15 mins), Memory Usage, I/O wait% and more in depth I/O stats.
+# The following gives you CPU usage, Load Averages (every 5/10/15 mins), Memory Usage, wait% and more in depth I/O stats.
 
-echo -e "\n${GREEN}CPU Usage:${RESET}"
+echo -e "\n${GREEN}CPU Usage and I/O Wait:${RESET}"
 sar | head -3 
 sar | tail -5 
 echo -e "\n${GREEN}Load:${RESET}"
@@ -58,21 +94,29 @@ sar -q | tail -5
 echo -e "\n${GREEN}Memory:${RESET}"
 sar -r | head -3 
 sar -r | tail -5
-echo -e "\n${GREEN}I/O Wait:${RESET}"
-sar -d | head -3 
-sar -d | tail -5
-echo
- 
+
+
+echo -e "\n${CYAN}Version Check on DECK!${RESET}"
+
+echo -e "\n${CYAN}MySQL Version${RESET}"
+mysql -V | awk '{print $1,$2,$3,$4,$5}'| cut -d "," -f 1
+
+echo -e "\n${CYAN}PHP version, Loader, Engine${RESET}"
+php -v 
+
+echo -e "\n${CYAN}Apache and Easy Apache Versions${RESET}"
+http -v  | head -1 | awk '{print $3,$4}'
+httpd -v | tail -1 | awk '{print $1,$2}'
+
+echo -e "\n${CYAN}cPanel Version${RESET}"
+/usr/local/cpanel/cpanel -V
+
+echo -e "\n${CYAN}Linux OS Version${RESET}"
+cat /etc/redhat-release
+
 # Check if this runs before actually running it.
 # This is only available on cpanel servers.
 if [ -a /usr/local/cpanel/bin/dcpumonview ]; then
-    /usr/local/cpanel/bin/dcpumonview
-fi
-
-echo -e "\n${GREEN}Active Connections:${RESET}"
-# Are we root? The netstat -p option requires root
-if [ $EUID -ne 0 ]; then
-    netstat -tuna
-else
-    netstat -ptuna
+    echo -e "\n${MAGENTA}Do we require additional pylons?${RESET}" 
+	/usr/local/cpanel/bin/dcpumonview
 fi
